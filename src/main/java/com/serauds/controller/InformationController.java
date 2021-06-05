@@ -27,7 +27,7 @@ public class InformationController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<InformationEntity> postCurrentStatus(@PathVariable Long id, @RequestBody CurrentStatus status) {
+    public ResponseEntity<InformationEntity> postCurrentStatus(@PathVariable Long id, @RequestBody CurrentStatus status) throws Exception {
         InformationEntity information = service.postCurrentStatus(id,status);
         return ResponseEntity.ok(information);
     }

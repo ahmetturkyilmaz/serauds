@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,11 +38,31 @@ public class InformationService {
     }
 
     @Transactional
-    public InformationEntity postCurrentStatus(Long id, CurrentStatus currentStatus) {
+    public InformationEntity postCurrentStatus(Long id, CurrentStatus currentStatus) throws Exception {
         InformationEntity informationEntity = getInformationEntityById(id);
+        boolean flag = true;
+        if (currentStatus.getHumidity() != null && currentStatus.getTemperature() != null) {
+            if (!(currentStatus.getHumidity() < 60 && currentStatus.getHumidity() > 50)) {
+                flag = false;
+            }
 
+            if (!(currentStatus.getTemperature() > 35 && currentStatus.getTemperature() < 45)) {
+                flag = false;
+            }
+        } else {
+            throw new Exception("Humidity or temperature info is not valid");
+        }
+        if (!flag) {
+            currentStatus.setStatus("critical");
+        } else {
+            currentStatus.setStatus("normal");
+        }
+
+        currentStatus.setDate(new Date());
         CurrentStatus savedStatus = statusRepository.save(currentStatus);
+
         List<CurrentStatus> statusList = informationEntity.getStatusList();
+
         statusList.add(savedStatus);
         informationEntity.setStatusList(statusList);
 

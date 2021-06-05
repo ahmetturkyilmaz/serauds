@@ -12,8 +12,8 @@ public class CurrentStatus {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date date;
-    private double temperature;
-    private double humidity;
+    private Double temperature;
+    private Double humidity;
     private String status;
 
     public Long getId() {
@@ -32,19 +32,19 @@ public class CurrentStatus {
         this.date = date;
     }
 
-    public double getTemperature() {
+    public Double getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(double temperature) {
+    public void setTemperature(Double temperature) {
         this.temperature = temperature;
     }
 
-    public double getHumidity() {
+    public Double getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(double humidity) {
+    public void setHumidity(Double humidity) {
         this.humidity = humidity;
     }
 
