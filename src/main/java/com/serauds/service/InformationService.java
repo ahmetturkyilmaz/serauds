@@ -27,7 +27,7 @@ public class InformationService {
 
     public InformationEntity getInformationEntityById(Long id) {
         Optional<InformationEntity> informationEntity = entityRepository.findById(id);
-        if (informationEntity.isEmpty()) {
+        if (!informationEntity.isPresent()) {
             throw new EntityNotFoundException();
         }
         return informationEntity.get();
