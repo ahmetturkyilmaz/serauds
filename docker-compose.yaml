@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  server:
+    image: serauds
+    build:
+      context: .
+    ports:
+      - "9090:9090"
